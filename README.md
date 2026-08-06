@@ -1,17 +1,17 @@
 # dotenvx GUI
 
-A modern, cross-platform desktop application for managing `.env` files with ease. Built with [Tauri](https://tauri.app/), [React](https://react.dev/), and [TypeScript](https://www.typescriptlang.org/).
+A cross-platform desktop app for managing and encrypting `.env` files with [dotenvx](https://dotenvx.com/). Built with [Tauri](https://tauri.app/), [React](https://react.dev/), and [TypeScript](https://www.typescriptlang.org/).
 
 ![Preview](./preview.png)
 
 ## Features
 
-- 🖥️ **Cross-platform** - Works on macOS, Windows, and Linux
-- ⚡ **Fast & Lightweight** - Built with Tauri for minimal resource usage
-- 🎨 **Modern UI** - Clean, intuitive interface with TailwindCSS
-- 🔐 **Secure** - Local-first design, no data sent to external servers
-- 📝 **Easy Management** - View, edit, and organize environment variables
-- 🔄 **Real-time Updates** - Watch for file changes and sync automatically
+- 🔐 **dotenvx encryption** - Encrypt variables individually; view and copy decrypted values in memory without rewriting the file
+- 🔑 **Key management** - `.env.keys` dialog with masked private keys, key rotation, and git safety warnings
+- ⏱️ **Auto re-mask** - Revealed values re-mask after 60 seconds; copied values clear from the clipboard
+- 📝 **Inline editing** - Add and edit variables directly, encrypted or plaintext
+- 🔄 **File watching** - Picks up external changes to `.env` files and `.env.keys`
+- 🖥️ **Cross-platform** - macOS, Windows, and Linux, built with Tauri
 
 ## Installation
 
@@ -35,7 +35,7 @@ Download the latest release for your platform:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/dotenvx-gui.git
+git clone https://github.com/adamghill/dotenvx-gui.git
 cd dotenvx-gui
 
 # Install dependencies
@@ -87,4 +87,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Support
 
-For issues, questions, or suggestions, please open an [issue](https://github.com/yourusername/dotenvx-gui/issues) on GitHub.
+For issues, questions, or suggestions, please open an [issue](https://github.com/adamghill/dotenvx-gui/issues) on GitHub.
