@@ -687,7 +687,7 @@ export const EnvFileViewer: React.FC<EnvFileViewerProps> = ({
           className="w-full flex flex-col"
         >
           <div className="sticky top-0 z-10 bg-background py-2">
-              <TabsList className="flex flex-wrap gap-1.5 justify-start h-auto w-fit bg-transparent p-0">
+              <TabsList className="flex flex-wrap gap-1.5 justify-start h-auto group-data-[orientation=horizontal]/tabs:h-auto w-fit bg-transparent p-0">
                 {tabFiles.map((envFile) => (
                   <TabsTrigger
                     key={envFile.id}
