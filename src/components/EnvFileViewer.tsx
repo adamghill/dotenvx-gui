@@ -132,9 +132,13 @@ export const EnvFileViewer: React.FC<EnvFileViewerProps> = ({
   const tabFiles = project?.envFiles.filter((f) => f.type !== "keys") ?? [];
   const keysFile = project?.envFiles.find((f) => f.type === "keys");
 
-  const [selectedFileId, setSelectedFileId] = useState<string | null>(
-    project?.envFiles.find((f) => f.type !== "keys")?.id || null,
-  );
+  const [selectedFileId, setSelectedFileId] = useState<string | null>(null);
+
+  // A stale id left over from a previously viewed project counts as no
+  // selection, so switching projects falls back to the first file
+  const activeFileId = tabFiles.some((f) => f.id === selectedFileId)
+    ? selectedFileId
+    : (tabFiles[0]?.id ?? null);
 
   // A git-tracked .env.keys means private keys could be committed - the
   // single worst failure mode of the dotenvx model, so check and warn loudly
@@ -161,7 +165,7 @@ export const EnvFileViewer: React.FC<EnvFileViewerProps> = ({
 
   // Watch for file changes - only watch the selected file
   const selectedEnvFile = project?.envFiles.find(
-    (f) => f.id === selectedFileId,
+    (f) => f.id === activeFileId,
   );
 
   useFileWatcher({
@@ -681,8 +685,7 @@ export const EnvFileViewer: React.FC<EnvFileViewerProps> = ({
         </Card>
       ) : (
         <Tabs
-          defaultValue={tabFiles[0]?.id}
-          value={selectedFileId || tabFiles[0]?.id}
+          value={activeFileId ?? ""}
           onValueChange={setSelectedFileId}
           className="w-full flex flex-col"
         >
