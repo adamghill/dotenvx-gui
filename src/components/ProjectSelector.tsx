@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { open } from "@tauri-apps/plugin-dialog";
+import { confirm, open } from "@tauri-apps/plugin-dialog";
 import { Project } from "../types";
 import { StorageManager } from "../storage";
 import { FileScanner } from "../utils/fileScanner";
@@ -68,7 +68,16 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({
     event: React.MouseEvent,
   ) => {
     event.stopPropagation();
-    if (confirm("Are you sure you want to remove this project?")) {
+    const proceed = await confirm(
+      "Are you sure you want to remove this project?",
+      {
+        title: "Remove project?",
+        kind: "warning",
+        okLabel: "Remove",
+        cancelLabel: "Cancel",
+      },
+    );
+    if (proceed) {
       await StorageManager.deleteProject(projectId);
       const updatedState = await StorageManager.loadState();
       onProjectsUpdate(updatedState.projects);
