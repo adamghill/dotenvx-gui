@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { invoke } from "@tauri-apps/api/core";
+import { confirm } from "@tauri-apps/plugin-dialog";
 import { AlertCircle, CheckCircle, Trash2, Lock, Unlock } from "lucide-react";
 import { Button } from "./ui/button";
 
@@ -103,7 +104,13 @@ export function BackupManager({
   };
 
   const handleDeleteBackup = async (backupId: string) => {
-    if (!confirm("Are you sure you want to delete this backup?")) return;
+    const proceed = await confirm("Are you sure you want to delete this backup?", {
+      title: "Delete backup?",
+      kind: "warning",
+      okLabel: "Delete",
+      cancelLabel: "Cancel",
+    });
+    if (!proceed) return;
 
     try {
       setIsLoading(true);
@@ -120,10 +127,16 @@ export function BackupManager({
   };
 
   const handleDeleteAllBackups = async () => {
-    if (
-      !confirm("Are you sure you want to delete all backups for this project?")
-    )
-      return;
+    const proceed = await confirm(
+      "Are you sure you want to delete all backups for this project?",
+      {
+        title: "Delete all backups?",
+        kind: "warning",
+        okLabel: "Delete All",
+        cancelLabel: "Cancel",
+      },
+    );
+    if (!proceed) return;
 
     try {
       setIsLoading(true);

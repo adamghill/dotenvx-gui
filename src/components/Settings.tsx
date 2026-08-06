@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { invoke } from "@tauri-apps/api/core";
+import { confirm } from "@tauri-apps/plugin-dialog";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
 import { Alert, AlertDescription } from "./ui/alert";
@@ -82,11 +83,16 @@ export function Settings() {
   };
 
   const handleResetDatabase = async () => {
-    if (
-      !confirm(
-        "Are you sure you want to reset the backup database? This will delete all backups. This action cannot be undone.",
-      )
-    ) {
+    const proceed = await confirm(
+      "Are you sure you want to reset the backup database? This will delete all backups. This action cannot be undone.",
+      {
+        title: "Reset backup database?",
+        kind: "warning",
+        okLabel: "Reset",
+        cancelLabel: "Cancel",
+      },
+    );
+    if (!proceed) {
       return;
     }
 
